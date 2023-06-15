@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {WarehouseHomeComponent} from "../warehouse-home/warehouse-home.component";
+import {AuthService} from "../../service/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ export class LoginComponent {
   password: string = '';
   message: string = '';
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {
   }
 
   logIn() {
@@ -25,7 +25,9 @@ export class LoginComponent {
     this.http.post<any>('http://localhost:3000/api/user/auth', loginData)
       .subscribe(
         response => {
-          console.log('Login succesfully');
+          console.log('Login successfully');
+          const token = response.token;
+          this.authService.setToken(token);
           this.router.navigate(['/home']);
         },
         error => {
@@ -38,5 +40,4 @@ export class LoginComponent {
   signUp(){
     this.router.navigate(['/register']);
   }
-
 }

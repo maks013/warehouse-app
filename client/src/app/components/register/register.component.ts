@@ -8,7 +8,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  username: string = '';
+  name: string = '';
   email: string = '';
   password: string = '';
   message: string = '';
@@ -18,7 +18,7 @@ export class RegisterComponent {
   register() {
     const userData = {
       email: this.email,
-      name: this.username,
+      name: this.name,
       password: this.password
     };
 

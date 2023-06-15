@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {AuthService} from "../../service/auth.service";
 
 @Component({
   selector: 'app-warehouse-home',
@@ -28,13 +29,16 @@ export class WarehouseHomeComponent {
     image: ''
   };
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {
+  }
 
   ngOnInit() {
     this.fetchProducts();
   }
 
   fetchProducts() {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     this.http.get<any>('http://localhost:3000/api/products')
       .subscribe(response => {
         this.products = response.products;
@@ -66,23 +70,6 @@ export class WarehouseHomeComponent {
     };
   }
 
-  addProduct() {
-    this.http.post('http://localhost:3000/api/products', this.newProduct)
-      .subscribe(response => {
-        console.log('Product added successfully');
-        this.fetchProducts();
-        this.closeForm();
-      });
-  }
-
-
-  showEditForm(productId: string) {
-    this.showForm = true;
-    this.showFormToEdit = true;
-    this.formTitle = 'Edit Product';
-    this.selectedProduct = this.products.find(product => product._id === productId);
-  }
-
   saveProduct(productId: string) {
     const updatedProduct = {
       title: this.selectedProduct.title,
@@ -103,8 +90,27 @@ export class WarehouseHomeComponent {
       });
   }
 
+  addProduct() {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    this.http.post('http://localhost:3000/api/products', this.newProduct)
+      .subscribe(response => {
+        console.log('Product added successfully');
+        this.fetchProducts();
+        this.closeForm();
+      });
+  }
+
+  showEditForm(productId: string) {
+    this.showForm = true;
+    this.showFormToEdit = true;
+    this.formTitle = 'Edit Product';
+    this.selectedProduct = this.products.find(product => product._id === productId);
+  }
 
   deleteProduct(productId: string) {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     const url = `http://localhost:3000/api/products/${productId}`;
     this.http.delete(url)
       .subscribe(response => {
@@ -114,6 +120,8 @@ export class WarehouseHomeComponent {
   }
 
   logOut() {
+    this.authService.removeToken();
     this.router.navigate(["/login"]);
   }
+
 }

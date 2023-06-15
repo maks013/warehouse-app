@@ -177,8 +177,8 @@ body {
   margin-top: 16px;
 }
 
-.close-button,
 .save-button,
+.close-button,
 .add-button {
   padding: 10px 20px;
   border: none;
@@ -191,6 +191,7 @@ body {
   font-weight: bold;
 }
 
+.save-button,
 .close-button:hover,
 .add-button:hover {
   background-color: #111b26;
