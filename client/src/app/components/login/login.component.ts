@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {WarehouseHomeComponent} from "../warehouse-home/warehouse-home.component";
+import {AuthService} from "../../service/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -11,8 +11,9 @@ import {WarehouseHomeComponent} from "../warehouse-home/warehouse-home.component
 export class LoginComponent {
   login: string = '';
   password: string = '';
+  message: string = '';
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {
   }
 
   logIn() {
@@ -24,13 +25,14 @@ export class LoginComponent {
     this.http.post<any>('http://localhost:3000/api/user/auth', loginData)
       .subscribe(
         response => {
-          // Pomyślne logowanie
-          console.log('Zalogowano pomyślnie');
+          console.log('Login successfully');
+          const token = response.token;
+          this.authService.setToken(token);
           this.router.navigate(['/home']);
         },
         error => {
-          // Błąd logowania
           console.error(error);
+          this.message = 'Login failed';
         }
       );
   }
@@ -38,5 +40,4 @@ export class LoginComponent {
   signUp(){
     this.router.navigate(['/register']);
   }
-
 }

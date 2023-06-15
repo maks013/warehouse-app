@@ -1,9 +1,12 @@
 <div class="register-form-container">
   <h2 class="register-form-title">Registration</h2>
+  <div class="registration-message">
+    {{ message }}
+  </div>
   <form (ngSubmit)="register()">
     <div class="register-form-group">
       <label for="username">Name</label>
-      <input class="register-form-input" type="text" id="username" name="username" [(ngModel)]="username" required>
+      <input class="register-form-input" type="text" id="username" name="username" [(ngModel)]="name" required>
     </div>
     <div class="register-form-group">
       <label for="email">E-mail</label>
@@ -13,14 +16,11 @@
       <label for="password">Password</label>
       <input class="register-form-input" type="password" id="password" name="password" [(ngModel)]="password" required>
     </div>
-
     <div class="register-form-actions">
       <button class="register-button" type="submit">Register</button>
     </div>
-
     <div class="register-form-actions">
       <button class="register-button" (click)="goBackToLogin()">Login</button>
     </div>
-
   </form>
 </div>

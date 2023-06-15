@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import config from '../config';
+import config from '../db/config';
 
 const auth = (req, res, next) => {
   let token = req.headers['x-access-token'] || req.headers['authorization'];

@@ -10,9 +10,9 @@ const userEndpoint = (router) => {
         } catch (error) {
             applicationException.errorHandler(error, response);
         }
-     });
+    });
 
-     router.post('/api/user/register', async (request, response, next) => {
+    router.post('/api/user/register', async (request, response, next) => {
         try {
             const result = await business.getUserManager(request).createNewOrUpdate(request.body);
             response.status(200).send(result);
@@ -21,13 +21,13 @@ const userEndpoint = (router) => {
         }
     });
 
-    router.delete('/api/user/logout/:userId',auth, async (request, response, next) => {
-       try {
-           let result = await business.getUserManager(request).removeHashSession(request.params.userId);
-           response.status(200).send(result);
-       } catch (error) {
-           applicationException.errorHandler(error, response);
-       }
+    router.delete('/api/user/logout/:userId', auth, async (request, response, next) => {
+        try {
+            let result = await business.getUserManager(request).removeHashSession(request.params.userId);
+            response.status(200).send(result);
+        } catch (error) {
+            applicationException.errorHandler(error, response);
+        }
     });
 
 };

@@ -8,16 +8,17 @@ import {Router} from "@angular/router";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  username: string = '';
+  name: string = '';
   email: string = '';
   password: string = '';
+  message: string = '';
 
   constructor(private http: HttpClient, private router: Router) {}
 
   register() {
     const userData = {
       email: this.email,
-      name: this.username,
+      name: this.name,
       password: this.password
     };
 
@@ -25,11 +26,11 @@ export class RegisterComponent {
       .subscribe(
         (response) => {
           console.log('You have succesfully registered', response);
-          // Tutaj możesz dodać odpowiednią obsługę po pomyślnym zarejestrowaniu użytkownika
+          this.message = 'You have succesfully registered';
         },
         (error) => {
           console.error('Registration failed:', error);
-          // Tutaj możesz dodać odpowiednią obsługę błędu rejestracji
+          this.message = 'Registration failed';
         }
       );
   }
