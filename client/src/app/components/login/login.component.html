@@ -1,0 +1,21 @@
+<div class="register-form-container">
+  <h2 class="register-form-title">Login</h2>
+  <form>
+    <div class="register-form-group">
+      <label for="login">Email</label>
+      <input class="register-form-input" type="email" id="login" name="login" [(ngModel)]="login" required>
+    </div>
+    <div class="register-form-group">
+      <label for="password">Password</label>
+      <input class="register-form-input" type="password" id="password" name="password" [(ngModel)]="password" required>
+    </div>
+
+    <div class="register-form-actions">
+      <button class="register-button" (click)="logIn()">Login</button>
+    </div>
+
+    <div class="register-form-actions">
+      <button class="register-button" (click)="signUp()">Sign up</button>
+    </div>
+  </form>
+</div>

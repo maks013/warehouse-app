@@ -1,0 +1,89 @@
+<header class="header">
+  <div class="header-logo">Warehouse</div>
+  <button class="logout-button" (click)="logOut()">Log Out</button>
+</header>
+
+<div class="product-list">
+  <div class="product-card" *ngFor="let product of products">
+    <div class="product-image">
+      <img [src]="product.image" alt="Product Image">
+    </div>
+    <div class="product-details">
+      <h2>{{ product.title }}</h2>
+      <p>{{ product.description }}</p>
+      <p>Quantity: {{ product.quantity }}</p>
+      <p>EAN Code: {{ product.ean_code }}</p>
+      <div class="product-actions">
+        <button class="edit-button" (click)="showEditForm(product._id)">Edit</button>
+        <button class="delete-button" (click)="deleteProduct(product._id)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="add-product-button">
+  <button class="add-button" (click)="showAddForm()">+ Add product</button>
+</div>
+
+<div class="form-overlay" *ngIf="showForm">
+  <div class="form-container">
+    <h2>Add Product</h2>
+    <form>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" [(ngModel)]="newProduct.title" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input id="description" name="description" [(ngModel)]="newProduct.description" required>
+      </div>
+      <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity" name="quantity" [(ngModel)]="newProduct.quantity" required>
+      </div>
+      <div class="form-group">
+        <label for="ean_code">EAN Code</label>
+        <input type="text" id="ean_code" name="ean_code" [(ngModel)]="newProduct.ean_code" required>
+      </div>
+      <div class="form-group">
+        <label for="image">Image URL</label>
+        <input type="text" id="image" name="image" [(ngModel)]="newProduct.image" required>
+      </div>
+      <div class="form-actions">
+        <button class="close-button" (click)="closeForm()">Close</button>
+        <button class="add-button" (click)="addProduct()">Add</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="form-overlay" *ngIf="showFormToEdit">
+  <div class="form-container">
+    <h2>Edit Product</h2>
+    <form>
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" id="titleEdit" name="title" [(ngModel)]="selectedProduct.title">
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input id="descriptionEdit" name="description" [(ngModel)]="selectedProduct.description">
+      </div>
+      <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity" name="quantity" [(ngModel)]="selectedProduct.quantity">
+      </div>
+      <div class="form-group">
+        <label for="ean_code">EAN Code</label>
+        <input type="text" id="ean_code" name="ean_code" [(ngModel)]="selectedProduct.ean_code">
+      </div>
+      <div class="form-group">
+        <label for="image">Image URL</label>
+        <input type="text" id="image" name="image" [(ngModel)]="selectedProduct.image">
+      </div>
+      <div class="form-actions">
+        <button class="close-button" (click)="closeForm()">Close</button>
+        <button class="save-button" (click)="saveProduct(selectedProduct._id)">Save</button>
+      </div>
+    </form>
+  </div>
+</div>

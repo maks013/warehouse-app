@@ -64,11 +64,6 @@ const dataEndpoint = (router) => {
             image
         } = request.body;
 
-        if (!title || !image || !description || !quantity || !ean_code) {
-            response.status(400).send({error: "All fields are required."});
-            return;
-        }
-
         try {
             const updatedProduct = await Product.findByIdAndUpdate(
                 request.params.id,
