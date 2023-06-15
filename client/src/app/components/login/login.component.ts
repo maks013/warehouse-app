@@ -11,6 +11,7 @@ import {WarehouseHomeComponent} from "../warehouse-home/warehouse-home.component
 export class LoginComponent {
   login: string = '';
   password: string = '';
+  message: string = '';
 
   constructor(private http: HttpClient, private router: Router) {
   }
@@ -24,13 +25,12 @@ export class LoginComponent {
     this.http.post<any>('http://localhost:3000/api/user/auth', loginData)
       .subscribe(
         response => {
-          // Pomyślne logowanie
-          console.log('Zalogowano pomyślnie');
+          console.log('Login succesfully');
           this.router.navigate(['/home']);
         },
         error => {
-          // Błąd logowania
           console.error(error);
+          this.message = 'Login failed';
         }
       );
   }

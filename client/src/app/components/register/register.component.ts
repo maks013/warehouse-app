@@ -11,6 +11,7 @@ export class RegisterComponent {
   username: string = '';
   email: string = '';
   password: string = '';
+  message: string = '';
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -25,11 +26,11 @@ export class RegisterComponent {
       .subscribe(
         (response) => {
           console.log('You have succesfully registered', response);
-          // Tutaj możesz dodać odpowiednią obsługę po pomyślnym zarejestrowaniu użytkownika
+          this.message = 'You have succesfully registered';
         },
         (error) => {
           console.error('Registration failed:', error);
-          // Tutaj możesz dodać odpowiednią obsługę błędu rejestracji
+          this.message = 'Registration failed';
         }
       );
   }
