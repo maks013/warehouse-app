@@ -1,5 +1,5 @@
 import bodyParser from "body-parser";
-import config from "./config";
+import config from "./db/config";
 import cors from "cors";
 import express from "express";
 import morgan from "morgan";

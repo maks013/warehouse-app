@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import config from '../config';
+import config from '../db/config';
 import momentWrapper from '../service/momentWrapper';
 import jwt from 'jsonwebtoken';
 import mongoConverter from '../service/mongoConverter';
@@ -48,7 +48,7 @@ async function create(user) {
   }
   throw applicationException.new(applicationException.BAD_REQUEST, error.message);
  }
- 
+
  async function get(tokenValue) {
   const result = await TokenModel.findOne({ value: tokenValue });
   if (result) {
@@ -56,17 +56,16 @@ async function create(user) {
   }
   throw applicationException.new(applicationException.UNAUTHORIZED, 'Token not found');
  }
- 
+
  async function remove(userId) {
   return await TokenModel.deleteOne({ userId: userId });
  }
- 
+
  export default {
   create: create,
   get: get,
   remove: remove,
- 
+
   tokenTypeEnum: tokenTypeEnum,
   model: TokenModel
  };
- 

@@ -1,4 +1,4 @@
-import Product from "../product";
+import Product from "../db/product";
 
 const dataEndpoint = (router) => {
     router.get("/api/products", async (request, response, next) => {
